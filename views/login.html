@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login — Are You a Little Wet?</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="auth-page">
+
+<div class="auth-card">
+
+    <div class="auth-header">
+        <h1>💧 Are You a Little Wet?</h1>
+        <p>Monitoreo de humedad de suelo en tiempo real</p>
+    </div>
+
+    <form id="form-login">
+        <div class="campo-grupo">
+            <label for="email">Correo electrónico</label>
+            <input type="email" id="email" placeholder="ejemplo@correo.com" required>
+        </div>
+
+        <div class="campo-grupo">
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" placeholder="Tu contraseña" required>
+        </div>
+
+        <div id="msg-login" class="mensaje" style="display:none;"></div>
+
+        <button type="submit" class="btn-primary">Iniciar sesión</button>
+    </form>
+
+    <p class="auth-footer">
+        ¿No tienes cuenta? <a href="/signup">Regístrate aquí</a>
+    </p>
+
+</div>
+
+<script>
+    document.getElementById('form-login').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const email    = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const msg      = document.getElementById('msg-login');
+
+        try {
+            const res  = await fetch('/api/auth/login', {
+                method:  'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body:    JSON.stringify({ email, password })
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                // Login exitoso, redirigimos al dashboard
+                window.location.href = '/dashboard';
+            } else {
+                msg.textContent     = data.error;
+                msg.className       = 'mensaje error';
+                msg.style.display   = 'block';
+            }
+
+        } catch (error) {
+            msg.textContent   = 'Error de conexión, intenta de nuevo';
+            msg.className     = 'mensaje error';
+            msg.style.display = 'block';
+        }
+    });
+</script>
+
+</body>
+</html>

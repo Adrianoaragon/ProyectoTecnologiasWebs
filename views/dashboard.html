@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — Are You a Little Wet?</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+</head>
+<body class="dashboard-page">
+
+<!-- NAVBAR -->
+<header class="navbar">
+    <div class="navbar-brand">💧 Are You a Little Wet?</div>
+    <nav class="navbar-links">
+        <a href="/dashboard" class="activo">Dashboard</a>
+        <a href="/about">About Us</a>
+        <button id="btn-logout" class="btn-logout">Cerrar sesión</button>
+    </nav>
+</header>
+
+<!-- CONTENIDO PRINCIPAL -->
+<main class="dashboard-main">
+
+    <!-- Saludo al usuario -->
+    <div class="dashboard-header">
+        <div>
+            <h2 id="saludo">Bienvenido</h2>
+            <p class="subtitulo">Monitoreo en tiempo real — Sensor de humedad de suelo</p>
+        </div>
+        <div class="ultima-actualizacion">
+            Última lectura: <span id="ultima-hora">--</span>
+        </div>
+    </div>
+
+    <!-- TARJETAS DE MÉTRICAS -->
+    <div class="metricas-grid">
+        <div class="metrica-card">
+            <span class="metrica-label">Humedad actual</span>
+            <span class="metrica-valor" id="humedad-actual">--%</span>
+            <span class="metrica-sub">Última lectura del sensor</span>
+        </div>
+        <div class="metrica-card">
+            <span class="metrica-label">Promedio del día</span>
+            <span class="metrica-valor" id="humedad-promedio">--%</span>
+            <span class="metrica-sub">Promedio de hoy</span>
+        </div>
+        <div class="metrica-card">
+            <span class="metrica-label">Estado del suelo</span>
+            <span class="metrica-valor" id="estado-suelo">--</span>
+            <span class="metrica-sub">Basado en la última lectura</span>
+        </div>
+    </div>
+
+    <!-- GRÁFICOS -->
+    <div class="graficos-grid">
+
+        <!-- Gráfico de línea -->
+        <div class="grafico-card grande">
+            <h3>Humedad en el tiempo</h3>
+            <div id="grafico-linea"></div>
+        </div>
+
+        <!-- Gauge -->
+        <div class="grafico-card">
+            <h3>Nivel actual</h3>
+            <div id="grafico-gauge"></div>
+        </div>
+
+    </div>
+
+    <!-- TABLA DE ÚLTIMAS LECTURAS -->
+    <div class="tabla-card">
+        <h3>Últimas lecturas</h3>
+        <div class="tabla-wrap">
+            <table class="tabla-lecturas">
+                <thead>
+                <tr>
+                    <th>Fecha y hora</th>
+                    <th>Sensor</th>
+                    <th>Humedad (%)</th>
+                    <th>Estado</th>
+                </tr>
+                </thead>
+                <tbody id="tabla-body">
+                <tr>
+                    <td colspan="4" class="tabla-vacia">Cargando datos...</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</main>
+
+<script src="/js/dashboard.js"></script>
+
+</body>
+</html>
