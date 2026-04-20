@@ -25,13 +25,16 @@ app.get('/',          (req, res) => res.sendFile(path.join(__dirname, 'views/log
 app.get('/signup',    (req, res) => res.sendFile(path.join(__dirname, 'views/signup.html')));
 app.get('/dashboard', (req, res) => res.sendFile(path.join(__dirname, 'views/dashboard.html')));
 app.get('/about',     (req, res) => res.sendFile(path.join(__dirname, 'views/about.html')));
+app.get('/docs', (req, res) => res.sendFile(path.join(__dirname, 'views/docs.html')));
 
 // Rutas de la API
 app.use('/api/auth',   require('./src/routes/auth'));
 app.use('/api/sensor', require('./src/routes/sensor'));
+app.use('/api/publica', require('./src/routes/publica'));
 
 // Iniciamos el servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
+

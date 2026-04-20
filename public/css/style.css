@@ -402,3 +402,216 @@ body {
     font-size: 11px;
     color: var(--text-light);
 }
+/* ── DOCS ────────────────────────────────────────────────── */
+.docs-hero {
+    background: var(--navy);
+    border-radius: var(--radius);
+    padding: 36px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    color: #ffffff;
+}
+.docs-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal);
+    background: rgba(14,138,125,0.15);
+    border: 1px solid rgba(14,138,125,0.3);
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+.docs-hero h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+.docs-hero p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.55);
+}
+.docs-base-url {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: flex-end;
+}
+.docs-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+}
+.docs-base-url code {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: var(--teal);
+}
+.docs-section {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.docs-section h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+}
+.endpoint-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+.endpoint-header {
+    background: var(--bg);
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border);
+}
+.method {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 4px;
+    letter-spacing: 0.06em;
+}
+.method.get {
+    background: #dcfce7;
+    color: #166534;
+}
+.endpoint-url {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+}
+.endpoint-desc {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-left: auto;
+}
+.endpoint-body {
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.endpoint-body p {
+    font-size: 13.5px;
+    color: var(--text-mid);
+}
+.docs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+.code-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-light);
+    margin-bottom: 6px;
+}
+.code-block {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 14px 16px;
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    line-height: 1.7;
+    overflow-x: auto;
+    white-space: pre;
+    margin: 0;
+}
+.resultado {
+    border: 1px solid var(--teal);
+    max-height: 200px;
+    overflow-y: auto;
+}
+.btn-probar {
+    background: var(--teal);
+    color: #ffffff;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    width: fit-content;
+    transition: background 0.15s;
+}
+.btn-probar:hover { background: #0a6b62; }
+.docs-param {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--bg);
+    padding: 10px 14px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    flex-wrap: wrap;
+}
+.param-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--blue);
+}
+.param-type {
+    font-size: 11px;
+    background: #dbeafe;
+    color: #1e40af;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+.param-default {
+    font-size: 11px;
+    color: var(--text-light);
+}
+.param-desc {
+    font-size: 13px;
+    color: var(--text-mid);
+}
+.guia-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+}
+.guia-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.guia-card h4 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+}
+
+/* ── RESPONSIVE DOCS ─────────────────────────────────────── */
+@media (max-width: 768px) {
+    .docs-grid  { grid-template-columns: 1fr; }
+    .docs-hero  { flex-direction: column; align-items: flex-start; }
+    .docs-base-url { align-items: flex-start; }
+}

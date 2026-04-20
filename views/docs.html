@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Docs — Are You a Little Wet?</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="dashboard-page">
+
+<header class="navbar">
+    <div class="navbar-brand">💧 Are You a Little Wet?</div>
+    <nav class="navbar-links">
+        <a href="/dashboard">Dashboard</a>
+        <a href="/about">About Us</a>
+        <a href="/docs" class="activo">API Docs</a>
+    </nav>
+</header>
+
+<main class="dashboard-main">
+
+    <div class="docs-hero">
+        <div>
+            <span class="docs-badge">API Pública</span>
+            <h2>Documentación de la API</h2>
+            <p>Acceso libre a los datos del sensor de humedad de suelo. No requiere autenticación.</p>
+        </div>
+        <div class="docs-base-url">
+            <span class="docs-label">URL Base</span>
+            <code id="base-url">/api/publica</code>
+        </div>
+    </div>
+
+    <!-- ENDPOINTS -->
+    <div class="docs-section">
+        <h3>Endpoints disponibles</h3>
+
+        <!-- GET /lecturas -->
+        <div class="endpoint-card">
+            <div class="endpoint-header">
+                <span class="method get">GET</span>
+                <code class="endpoint-url">/api/publica/lecturas</code>
+                <span class="endpoint-desc">Últimas 50 lecturas</span>
+            </div>
+            <div class="endpoint-body">
+                <p>Retorna las últimas 50 lecturas registradas por el sensor, ordenadas de más reciente a más antigua.</p>
+                <div class="docs-grid">
+                    <div>
+                        <div class="code-label">Ejemplo de petición</div>
+                        <pre class="code-block">fetch('/api/publica/lecturas')
+  .then(r => r.json())
+  .then(data => console.log(data))</pre>
+                    </div>
+                    <div>
+                        <div class="code-label">Ejemplo de respuesta</div>
+                        <pre class="code-block">{
+  "ok": true,
+  "total": 50,
+  "datos": [
+    {
+      "id": 100,
+      "humedad": 65.5,
+      "sensor_id": "ESP32-01",
+      "registrado_en": "2026-01-15T14:30:00.000Z"
+    }
+  ]
+}</pre>
+                    </div>
+                </div>
+                <button class="btn-probar" onclick="probarEndpoint('/api/publica/lecturas', 'res-lecturas')">
+                    ▶ Probar endpoint
+                </button>
+                <pre class="code-block resultado" id="res-lecturas" style="display:none;"></pre>
+            </div>
+        </div>
+
+        <!-- GET /ultima -->
+        <div class="endpoint-card">
+            <div class="endpoint-header">
+                <span class="method get">GET</span>
+                <code class="endpoint-url">/api/publica/ultima</code>
+                <span class="endpoint-desc">Última lectura</span>
+            </div>
+            <div class="endpoint-body">
+                <p>Retorna únicamente la lectura más reciente del sensor.</p>
+                <div class="docs-grid">
+                    <div>
+                        <div class="code-label">Ejemplo de petición</div>
+                        <pre class="code-block">fetch('/api/publica/ultima')
+  .then(r => r.json())
+  .then(data => console.log(data))</pre>
+                    </div>
+                    <div>
+                        <div class="code-label">Ejemplo de respuesta</div>
+                        <pre class="code-block">{
+  "ok": true,
+  "dato": {
+    "id": 100,
+    "humedad": 65.5,
+    "sensor_id": "ESP32-01",
+    "registrado_en": "2026-01-15T14:30:00.000Z"
+  }
+}</pre>
+                    </div>
+                </div>
+                <button class="btn-probar" onclick="probarEndpoint('/api/publica/ultima', 'res-ultima')">
+                    ▶ Probar endpoint
+                </button>
+                <pre class="code-block resultado" id="res-ultima" style="display:none;"></pre>
+            </div>
+        </div>
+
+        <!-- GET /promedio -->
+        <div class="endpoint-card">
+            <div class="endpoint-header">
+                <span class="method get">GET</span>
+                <code class="endpoint-url">/api/publica/promedio</code>
+                <span class="endpoint-desc">Promedio del día</span>
+            </div>
+            <div class="endpoint-body">
+                <p>Retorna el promedio, máximo y mínimo de humedad del día actual.</p>
+                <div class="docs-grid">
+                    <div>
+                        <div class="code-label">Ejemplo de petición</div>
+                        <pre class="code-block">fetch('/api/publica/promedio')
+  .then(r => r.json())
+  .then(data => console.log(data))</pre>
+                    </div>
+                    <div>
+                        <div class="code-label">Ejemplo de respuesta</div>
+                        <pre class="code-block">{
+  "ok": true,
+  "dato": {
+    "promedio": 58.3,
+    "maximo": 75.0,
+    "minimo": 42.1,
+    "total_lecturas": 48,
+    "fecha": "2026-01-15"
+  }
+}</pre>
+                    </div>
+                </div>
+                <button class="btn-probar" onclick="probarEndpoint('/api/publica/promedio', 'res-promedio')">
+                    ▶ Probar endpoint
+                </button>
+                <pre class="code-block resultado" id="res-promedio" style="display:none;"></pre>
+            </div>
+        </div>
+
+        <!-- GET /historial -->
+        <div class="endpoint-card">
+            <div class="endpoint-header">
+                <span class="method get">GET</span>
+                <code class="endpoint-url">/api/publica/historial?dias=7</code>
+                <span class="endpoint-desc">Historial por días</span>
+            </div>
+            <div class="endpoint-body">
+                <p>Retorna las lecturas de los últimos N días. Máximo 30 días.</p>
+                <div class="docs-param">
+                    <span class="param-name">dias</span>
+                    <span class="param-type">number</span>
+                    <span class="param-default">default: 7</span>
+                    <span class="param-desc">Número de días a consultar (1-30)</span>
+                </div>
+                <div class="docs-grid">
+                    <div>
+                        <div class="code-label">Ejemplo de petición</div>
+                        <pre class="code-block">fetch('/api/publica/historial?dias=3')
+  .then(r => r.json())
+  .then(data => console.log(data))</pre>
+                    </div>
+                    <div>
+                        <div class="code-label">Ejemplo de respuesta</div>
+                        <pre class="code-block">{
+  "ok": true,
+  "dias": 3,
+  "total": 144,
+  "datos": [...]
+}</pre>
+                    </div>
+                </div>
+                <button class="btn-probar" onclick="probarEndpoint('/api/publica/historial?dias=7', 'res-historial')">
+                    ▶ Probar endpoint
+                </button>
+                <pre class="code-block resultado" id="res-historial" style="display:none;"></pre>
+            </div>
+        </div>
+
+        <!-- GET /stats -->
+        <div class="endpoint-card">
+            <div class="endpoint-header">
+                <span class="method get">GET</span>
+                <code class="endpoint-url">/api/publica/stats</code>
+                <span class="endpoint-desc">Estadísticas generales</span>
+            </div>
+            <div class="endpoint-body">
+                <p>Retorna estadísticas globales de todos los datos históricos del sensor.</p>
+                <div class="docs-grid">
+                    <div>
+                        <div class="code-label">Ejemplo de petición</div>
+                        <pre class="code-block">fetch('/api/publica/stats')
+  .then(r => r.json())
+  .then(data => console.log(data))</pre>
+                    </div>
+                    <div>
+                        <div class="code-label">Ejemplo de respuesta</div>
+                        <pre class="code-block">{
+  "ok": true,
+  "dato": {
+    "total_lecturas": 1500,
+    "promedio_global": 61.2,
+    "maximo_historico": 98.0,
+    "minimo_historico": 5.0,
+    "primera_lectura": "2026-01-01T08:00:00.000Z",
+    "ultima_lectura": "2026-01-15T14:30:00.000Z"
+  }
+}</pre>
+                    </div>
+                </div>
+                <button class="btn-probar" onclick="probarEndpoint('/api/publica/stats', 'res-stats')">
+                    ▶ Probar endpoint
+                </button>
+                <pre class="code-block resultado" id="res-stats" style="display:none;"></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- GUÍA DE USO -->
+    <div class="docs-section">
+        <h3>Guía de uso rápido</h3>
+        <div class="guia-grid">
+            <div class="guia-card">
+                <h4>JavaScript (Fetch)</h4>
+                <pre class="code-block">const BASE = 'https://tu-url.ngrok-free.app';
+
+async function obtenerHumedad() {
+  const res  = await fetch(`${BASE}/api/publica/ultima`);
+  const data = await res.json();
+  console.log('Humedad:', data.dato.humedad + '%');
+}
+
+obtenerHumedad();</pre>
+            </div>
+            <div class="guia-card">
+                <h4>Python (requests)</h4>
+                <pre class="code-block">import requests
+
+BASE = 'https://tu-url.ngrok-free.app'
+
+r = requests.get(f'{BASE}/api/publica/ultima')
+data = r.json()
+print('Humedad:', data['dato']['humedad'])</pre>
+            </div>
+            <div class="guia-card">
+                <h4>Arduino / ESP32</h4>
+                <pre class="code-block">HTTPClient http;
+http.begin("https://tu-url.ngrok-free.app"
+           "/api/publica/ultima");
+http.addHeader("ngrok-skip-browser-warning",
+               "true");
+int code = http.GET();
+String body = http.getString();
+http.end();</pre>
+            </div>
+            <div class="guia-card">
+                <h4>curl (terminal)</h4>
+                <pre class="code-block">curl https://tu-url.ngrok-free.app\
+     /api/publica/ultima
+
+curl https://tu-url.ngrok-free.app\
+     /api/publica/historial?dias=3</pre>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<footer id="site-footer" style="background:#1c2b3a; margin-top:auto;">
+    <div style="max-width:1200px;margin:0 auto;padding:20px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+        <p style="color:rgba(255,255,255,0.45);font-size:13px;">
+            © 2026 <strong style="color:rgba(255,255,255,0.75);">Adriano Aragon</strong> — Universidad Simón Bolívar
+        </p>
+    </div>
+</footer>
+
+<script>
+    // Función para probar los endpoints en vivo
+    async function probarEndpoint(url, idResultado) {
+        const el = document.getElementById(idResultado);
+        el.style.display = 'block';
+        el.textContent   = 'Cargando...';
+
+        try {
+            const res  = await fetch(url);
+            const data = await res.json();
+            el.textContent = JSON.stringify(data, null, 2);
+        } catch (error) {
+            el.textContent = 'Error: ' + error.message;
+        }
+    }
+</script>
+
+</body>
+</html>
