@@ -83,5 +83,22 @@ router.get('/ultima', verificarSesion, async (req, res) => {
         res.status(500).json({ error: 'Error interno del servidor' });
     }
 });
+// ── ESTADO DEL LED ───────────────────────────────────────
+// Guardamos el estado en memoria (encendido/apagado)
+let estadoLed = false;
 
+// El ESP32 consulta este endpoint para saber si debe encender o apagar
+router.get('/led', (req, res) => {
+    res.json({ led: estadoLed });
+});
+
+// El dashboard llama este endpoint para cambiar el estado
+router.post('/led', verificarSesion, (req, res) => {
+    const { estado } = req.body;
+    if (typeof estado !== 'boolean') {
+        return res.status(400).json({ error: 'Estado debe ser true o false' });
+    }
+    estadoLed = estado;
+    res.json({ led: estadoLed, mensaje: estadoLed ? 'LED encendido' : 'LED apagado' });
+});
 module.exports = router;

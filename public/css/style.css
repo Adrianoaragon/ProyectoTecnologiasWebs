@@ -615,3 +615,26 @@ body {
     .docs-hero  { flex-direction: column; align-items: flex-start; }
     .docs-base-url { align-items: flex-start; }
 }
+
+/* ── BOTÓN LED ───────────────────────────────────────────── */
+.btn-led {
+    width: 100%;
+    padding: 10px;
+    border-radius: var(--radius);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    margin-top: 4px;
+}
+.btn-led.apagado {
+    background: var(--navy);
+    color: #ffffff;
+}
+.btn-led.apagado:hover { background: #2c3e50; }
+.btn-led.encendido {
+    background: #f59e0b;
+    color: #ffffff;
+}
+.btn-led.encendido:hover { background: #d97706; }

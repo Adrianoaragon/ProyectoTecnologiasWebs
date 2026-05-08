@@ -186,9 +186,58 @@ async function init() {
 
     // Cargamos los datos
     await cargarDatos();
+    await cargarEstadoLed();
 
     // Actualizamos los datos cada 30 segundos automáticamente
     setInterval(cargarDatos, 30000);
+}
+
+// ── CONTROL LED ──────────────────────────────────────────
+let ledEncendido = false;
+
+async function toggleLed() {
+    const nuevoEstado = !ledEncendido;
+
+    try {
+        const res = await fetch('/api/sensor/led', {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify({ estado: nuevoEstado })
+        });
+
+        const data = await res.json();
+        actualizarBotonLed(data.led);
+
+    } catch (error) {
+        console.error('Error controlando LED:', error);
+    }
+}
+
+function actualizarBotonLed(estado) {
+    ledEncendido = estado;
+    const btn        = document.getElementById('btn-led');
+    const estadoEl   = document.getElementById('estado-led');
+
+    if (estado) {
+        btn.textContent  = 'Apagar LED';
+        btn.className    = 'btn-led encendido';
+        estadoEl.textContent = '🟡 Encendido';
+    } else {
+        btn.textContent  = 'Encender LED';
+        btn.className    = 'btn-led apagado';
+        estadoEl.textContent = '⚫ Apagado';
+    }
+}
+
+// Cargamos el estado actual del LED al iniciar
+async function cargarEstadoLed() {
+    try {
+        const res  = await fetch('/api/sensor/led');
+        const data = await res.json();
+        actualizarBotonLed(data.led);
+    } catch (error) {
+        console.error('Error cargando estado LED:', error);
+    }
 }
 
 init();

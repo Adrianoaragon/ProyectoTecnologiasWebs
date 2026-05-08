@@ -15,6 +15,7 @@
     <nav class="navbar-links">
         <a href="/dashboard" class="activo">Dashboard</a>
         <a href="/about">About Us</a>
+        <a href="/docs">API Docs</a>
         <button id="btn-logout" class="btn-logout">Cerrar sesión</button>
     </nav>
 </header>
@@ -49,6 +50,13 @@
             <span class="metrica-label">Estado del suelo</span>
             <span class="metrica-valor" id="estado-suelo">--</span>
             <span class="metrica-sub">Basado en la última lectura</span>
+        </div>
+        <div class="metrica-card" style="justify-content: space-between;">
+            <span class="metrica-label">Control LED</span>
+            <span class="metrica-valor" id="estado-led" style="font-size: 20px;">⚫ Apagado</span>
+            <button id="btn-led" class="btn-led apagado" onclick="toggleLed()">
+                Encender LED
+            </button>
         </div>
     </div>
 

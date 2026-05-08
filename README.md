@@ -1,4 +1,4 @@
-# 💧 Are You a Little Wet?
+# Are You a Little Wet?
 
 Sistema de monitoreo de humedad de suelo en tiempo real, desarrollado como proyecto académico en la **Universidad Simón Bolívar**.
 
@@ -6,7 +6,7 @@ Los datos son recolectados por un sensor capacitivo de humedad conectado a un **
 
 ---
 
-## 📋 Requisitos previos
+## Requisitos previos
 
 Antes de instalar el proyecto asegúrate de tener:
 
@@ -18,7 +18,7 @@ Antes de instalar el proyecto asegúrate de tener:
 
 ---
 
-## 🚀 Instalación
+## Instalación
 
 ### 1. Clonar el repositorio
 
@@ -37,12 +37,12 @@ npm install
 
 Crea un archivo `.env` en la raíz del proyecto con el siguiente contenido:
 
-DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=tu_password_de_mysql
-DB_NAME=areyoualittlewet
-SESSION_SECRET=una_clave_secreta_cualquiera
-PORT=3000
+DB_HOST=localhost <br>
+DB_USER=root <br>
+DB_PASSWORD=tu_password_de_mysql <br>
+DB_NAME=areyoualittlewet <br>
+SESSION_SECRET=una_clave_secreta_cualquiera <br>
+PORT=3000 <br>
 
 ### 4. Crear la base de datos
 
@@ -92,37 +92,37 @@ Copia la URL que genera ngrok y actualiza la constante `SERVER_URL` en el códig
 
 ---
 
-## 📁 Estructura del proyecto
+## Estructura del proyecto
 
-areyoualittlewet/
-├── src/
-│   ├── config/
-│   │   └── db.js              # Conexión a MySQL
-│   ├── routes/
-│   │   ├── auth.js            # Login, signup, logout
-│   │   ├── sensor.js          # Recepción de datos del ESP32
-│   │   └── publica.js         # API pública para estudiantes
-│   └── middlewares/
-│       └── auth.js            # Verificación de sesión
-├── public/
-│   ├── css/
-│   │   └── style.css          # Estilos globales
-│   └── js/
-│       └── dashboard.js       # Lógica del dashboard
-├── views/
-│   ├── login.html             # Página de login
-│   ├── signup.html            # Página de registro
-│   ├── dashboard.html         # Dashboard principal
-│   ├── about.html             # Sobre el proyecto
-│   └── docs.html              # Documentación de la API
-├── .env                       # Variables de entorno (no subir a GitHub)
-├── .gitignore
-├── server.js                  # Servidor principal
-└── package.json
+areyoualittlewet/ <br>
+├── src/ <br>
+│   ├── config/ <br>
+│   │   └── db.js              # Conexión a MySQL <br>
+│   ├── routes/ <br>
+│   │   ├── auth.js            # Login, signup, logout <br>
+│   │   ├── sensor.js          # Recepción de datos del ESP32 <br>
+│   │   └── publica.js         # API pública para estudiantes <br>
+│   └── middlewares/ <br>
+│       └── auth.js            # Verificación de sesión <br>
+├── public/ <br>
+│   ├── css/ <br>
+│   │   └── style.css          # Estilos globales <br>
+│   └── js/ <br>
+│       └── dashboard.js       # Lógica del dashboard <br>
+├── views/ <br>
+│   ├── login.html             # Página de login <br>
+│   ├── signup.html            # Página de registro <br>
+│   ├── dashboard.html         # Dashboard principal <br>
+│   ├── about.html             # Sobre el proyecto <br>
+│   └── docs.html              # Documentación de la API <br>
+├── .env                       # Variables de entorno (no subir a GitHub) <br>
+├── .gitignore <br>
+├── server.js                  # Servidor principal <br>
+└── package.json 
 
 ---
 
-## 🔌 Configuración del ESP32
+## Configuración del ESP32
 
 ### Hardware necesario
 
@@ -165,7 +165,7 @@ Ajusta estos valores según tu sensor específico.
 
 ---
 
-## 🌐 API Pública
+## API Pública
 
 La API es de acceso libre. No requiere autenticación.
 
@@ -267,7 +267,7 @@ Retorna estadísticas generales de todos los datos históricos.
 
 ---
 
-## 🔐 Seguridad
+## Seguridad
 
 - Las contraseñas de usuarios se almacenan encriptadas con **bcryptjs**
 - Se usa **express-session** para manejo de sesiones
@@ -277,7 +277,7 @@ Retorna estadísticas generales de todos los datos históricos.
 
 ---
 
-## 👥 Autores
+## Autores
 
 - **Adriano Aragon** — Universidad Simón Bolívar, Facultad de Ingenierías
 - **Sebastian Blanco** — Universidad Simón Bolívar, Facultad de Ingenierías
@@ -288,7 +288,7 @@ Retorna estadísticas generales de todos los datos históricos.
 
 ---
 
-## 📄 Licencia
+## Licencia
 
 Proyecto académico — Universidad Simón Bolívar © 2026
 
