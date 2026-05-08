@@ -164,7 +164,35 @@ const int mojado = 1500; // Valor en agua (tierra completamente saturada)
 Ajusta estos valores según tu sensor específico.
 
 ---
+### Control del LED integrado desde el servidor
 
+El ESP32 consulta periódicamente el servidor para saber si debe encender o apagar su LED integrado (pin 2). Esta función se ejecuta en el `loop()`:
+
+```cpp
+// ── CONSULTAR ESTADO DEL LED ─────────────────────────────
+void consultarLed() {
+  if (WiFi.status() != WL_CONNECTED) return;
+  WiFiClientSecure client;
+  client.setInsecure();
+  HTTPClient http;
+  http.begin(client, "https://tu-url-ngrok.ngrok-free.app/api/sensor/led");
+  http.addHeader("ngrok-skip-browser-warning", "true");
+  int httpCode = http.GET();
+  if (httpCode == 200) {
+    String respuesta = http.getString();
+    // Si la respuesta contiene "true" encendemos, si no apagamos
+    if (respuesta.indexOf("true") >= 0) {
+      digitalWrite(LED_PIN, HIGH);
+      Serial.println("LED: ENCENDIDO");
+    } else {
+      digitalWrite(LED_PIN, LOW);
+      Serial.println("LED: APAGADO");
+    }
+  }
+  http.end();
+}
+```
+---
 ## API Pública
 
 La API es de acceso libre. No requiere autenticación.
@@ -274,6 +302,84 @@ Retorna estadísticas generales de todos los datos históricos.
 - Las rutas del dashboard requieren sesión activa
 - Las consultas SQL usan **prepared statements** para prevenir SQL injection
 - El archivo `.env` nunca se sube al repositorio
+
+---
+
+## Evidencias
+
+A continuación se presentan las evidencias del funcionamiento del sistema, organizadas según los requisitos del proyecto.
+
+---
+
+### 1. Dashboard en Plotly
+
+El dashboard muestra los datos del sensor en tiempo real mediante gráficos interactivos generados con **Plotly**: una gráfica de línea con el histórico de humedad, un gauge con el nivel actual y tarjetas de métricas (humedad actual, promedio del día y estado del suelo).
+
+> 📷 *Captura del dashboard principal con gráficos y métricas en funcionamiento.*
+
+![Dashboard principal](evidencias/dashboard.png)
+
+---
+
+### 2. Base de datos (MySQL)
+
+Se utiliza **MySQL** como motor de base de datos. La base `areyoualittlewet` contiene dos tablas: `lecturas_sensor`, que almacena cada lectura enviada por el ESP32, y `usuarios`, que guarda los usuarios registrados con contraseñas hasheadas mediante **bcryptjs**.
+
+> 📷 *Vista de la tabla `lecturas_sensor` en DBeaver con registros reales del sensor.*
+
+![Tabla lecturas_sensor](evidencias/db_lecturas.png)
+
+> 📷 *Vista de la tabla `usuarios` con contraseñas hasheadas.*
+
+![Tabla usuarios](evidencias/db_usuarios.png)
+
+---
+
+### 3. Login, Logout y About
+
+El sistema cuenta con autenticación por sesión. Los usuarios pueden registrarse, iniciar sesión y cerrar sesión. La página **About** presenta al equipo de desarrollo y la descripción del proyecto.
+
+> 📷 *Página de login con formulario de autenticación.*
+
+![Login](evidencias/login.png)
+
+> 📷 *Página About Us con información del equipo y stack tecnológico.*
+
+![About Us](evidencias/about.png)
+
+---
+
+### 4. Lectura y Push de datos entre sensor y LED
+
+El ESP32 envía lecturas de humedad al servidor mediante `POST /api/sensor/data` y consulta periódicamente el endpoint `GET /api/sensor/led` para recibir la orden de encender o apagar su LED integrado. El dashboard incluye un botón de control LED que actualiza el estado en el servidor en tiempo real.
+
+> 📷 *Dashboard mostrando el control del LED encendido.*
+
+![Control LED en dashboard](evidencias/led_dashboard.png)
+
+> 📷 *Monitor serial del ESP32 confirmando la recepción de la orden del LED y el envío de datos de humedad.*
+
+![Monitor serial ESP32](evidencias/serial_monitor.png)
+
+---
+
+### 5. API REST — GET, POST
+
+La API pública (`/api/publica`) expone endpoints **GET** sin autenticación para consultar lecturas, promedios e historial. La ruta `/api/sensor/data` recibe datos del ESP32 mediante **POST**. La ruta `/api/sensor/led` acepta **POST** desde el dashboard y **GET** desde el ESP32.
+
+La documentación interactiva está disponible en la ruta `/docs` de la aplicación.
+
+> 📷 *Documentación de la API con endpoints GET disponibles y ejemplos de respuesta.*
+
+![API Docs - GET lecturas y ultima](evidencias/api_docs_1.png)
+
+> 📷 *Endpoints de promedio, historial y estadísticas generales.*
+
+![API Docs - GET promedio y historial](evidencias/api_docs_2.png)
+
+> 📷 *Guía de uso rápido con ejemplos en JavaScript, Python, Arduino y curl.*
+
+![API Docs - Guía de uso](evidencias/api_docs_3.png)
 
 ---
 
