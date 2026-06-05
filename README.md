@@ -1,5 +1,5 @@
 # Are You a Little Wet?
-
+ 
 Sistema de monitoreo de humedad de suelo en tiempo real, desarrollado como proyecto académico en la **Universidad Simón Bolívar**.
 
 Los datos son recolectados por un sensor capacitivo de humedad conectado a un **ESP32**, almacenados en una base de datos **MySQL** y visualizados en un dashboard web con gráficos interactivos usando **Plotly**.
